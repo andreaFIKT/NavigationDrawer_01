@@ -8,7 +8,7 @@
         android:id="@+id/listView"
         android:layout_above="@+id/btnNext"
         android:layout_alignParentEnd="true"
-        android:background="#c63c3c"
+        android:background="#fcf6f6"
         android:longClickable="true" />
 
 </LinearLayout>

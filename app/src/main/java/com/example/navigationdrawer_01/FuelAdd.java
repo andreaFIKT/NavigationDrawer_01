@@ -81,5 +81,7 @@ public class FuelAdd extends Model {
                 .from(FuelAdd.class)
                 .execute();
     }
-
+    public static void delete(FuelAdd obj){
+        obj.delete();
+    }
 }

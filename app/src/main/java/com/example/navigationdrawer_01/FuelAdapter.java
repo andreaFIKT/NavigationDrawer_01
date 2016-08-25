@@ -1,6 +1,7 @@
 package com.example.navigationdrawer_01;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,4 +42,5 @@ public class FuelAdapter extends ArrayAdapter<FuelAdd> {
 
         return convertView;
     }
+
 }
