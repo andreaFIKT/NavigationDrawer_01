@@ -49,10 +49,11 @@ public class HistoryFragment extends Fragment {
             @Override
             public boolean onItemLongClick(final AdapterView<?> p, View v,final int po, long id) {
 
-                fuelInputs.remove(po);
+
                 long itemID = fuelInputs.get(po).getId();
                 Log.d("ItemID","= "+ itemID);
-                new Delete().from(FuelAdd.class).where("Id = ?",itemID-1).execute();
+                new Delete().from(FuelAdd.class).where("Id = ?",itemID).execute();
+                fuelInputs.remove(po);
                 adapter.notifyDataSetChanged();
                 return true;
             }

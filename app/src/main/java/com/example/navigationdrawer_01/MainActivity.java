@@ -105,6 +105,13 @@ public class MainActivity extends AppCompatActivity
             ft.commit();
             Log.d("THIRD LAYOUT", "HOME item is clicked");
         }
+        else if (id == R.id.nav_forth_layout) {
+            fragment = new CostFragment();
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.content_frame,fragment);
+            ft.commit();
+            Log.d("Forth layout", "HOME item is clicked");
+        }
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -9,6 +9,17 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string-array name="category">
+        <item>Service</item>
+        <item>Maintenance</item>
+        <item>Registration</item>
+        <item>Parking</item>
+        <item>Wash</item>
+        <item>Tolls</item>
+        <item>Tickets/Fines</item>
+        <item>Tunning</item>
+        <item>Insurance</item>
+    </string-array>
 
 
 </resources>
