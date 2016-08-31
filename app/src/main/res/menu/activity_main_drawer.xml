@@ -18,6 +18,10 @@
             android:id="@+id/nav_forth_layout"
             android:icon="@drawable/icon"
             android:title="Cost" />
+        <item
+            android:id="@+id/nav_fifth_layout"
+            android:icon="@drawable/icon"
+            android:title="Map" />
     </group>
 
 </menu>

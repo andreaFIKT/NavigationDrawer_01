@@ -1,8 +1,15 @@
 package com.example.navigationdrawer_01;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -15,9 +22,26 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
+    SupportMapFragment sMapFragment;
+    GoogleMap mMap;
+    protected GoogleApiClient mGoogleApiClient;
+    Location mLastLocation;
+    double lat = 0, lng = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +49,9 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        sMapFragment = SupportMapFragment.newInstance();
+
 
        /* FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -43,6 +70,7 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        sMapFragment.getMapAsync(this);
     }
 
     @Override
@@ -83,6 +111,10 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         Fragment fragment;
+        android.support.v4.app.FragmentManager sFM = getSupportFragmentManager();
+
+        if(sMapFragment.isAdded())
+            sFM.beginTransaction().hide(sMapFragment).commit();
 
         if (id == R.id.nav_first_layout) {
             fragment = new InputFragment();
@@ -112,10 +144,36 @@ public class MainActivity extends AppCompatActivity
             ft.commit();
             Log.d("Forth layout", "HOME item is clicked");
         }
+        else if (id == R.id.nav_fifth_layout) {
+            if(!sMapFragment.isAdded())
+                sFM.beginTransaction().add(R.id.map, sMapFragment).commit();
+            else
+            sFM.beginTransaction().show(sMapFragment).commit();
+            Log.d("Forth layout", "HOME item is clicked");
+        }
+
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+       /* mMap = googleMap;
+        LatLng latLng = new LatLng(41.0297,21.3292);
+        mMap.addMarker(new MarkerOptions().position(latLng).title("Bitola"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,5.0f));
+
+        mMap.setOnMapLongClickListener(new On);*/
+
+        mMap = googleMap;
+
+        LatLng loc = new LatLng(lat, lng);
+        mMap.addMarker(new MarkerOptions().position(loc).title("New Marker"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
+    }
+
+
 }
