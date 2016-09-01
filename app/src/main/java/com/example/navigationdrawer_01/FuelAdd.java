@@ -21,30 +21,18 @@ public class FuelAdd extends Model {
     String price;
     @Column(name = "TotalCost")
     String cost;
-    @Column(name = "Latitude")
-    double latitude;
-    @Column(name = "Longitude")
-    double longitude;
 
     public FuelAdd() {
         super();
     }
 
-    public FuelAdd(double latitude, double longitude) {
-        this.latitude = latitude;
-        this.longitude = longitude;
-    }
-
-    public FuelAdd(String date, String liters, String price, String cost,double latitude, double longitude){
+    public FuelAdd(String date, String liters, String price, String cost){
         super();
         this.date = date;
         this.liters = liters;
         this.price = price;
         this.cost = cost;
-        this.latitude = latitude;
-        this.longitude = longitude;
     }
-
 
     public String getCost() {
         return cost;
@@ -78,14 +66,6 @@ public class FuelAdd extends Model {
         this.cost = cost;
     }
 
-    public double getLatitude() { return latitude; }
-
-    public void setLatitude(double latitude) { this.latitude = latitude; }
-
-    public double getLongitude() { return longitude; }
-
-    public void setLongitude(double longitude) { this.longitude = longitude; }
-
     @Override
     public String toString() {
         return "FuelAdd{" +
@@ -93,8 +73,6 @@ public class FuelAdd extends Model {
                 ", Entered liters :'" + liters + '\'' +
                 ", Entered price :'" + price + '\'' +
                 ", Entered cost :'" + cost + '\'' +
-                ", Latitude :'" + latitude + '\'' +
-                ", Longitude :'" + longitude + '\'' +
                 '}';
     }
     public static List<FuelAdd> getAll() {

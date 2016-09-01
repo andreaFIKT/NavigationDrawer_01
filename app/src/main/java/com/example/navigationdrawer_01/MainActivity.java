@@ -32,23 +32,16 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
     SupportMapFragment sMapFragment;
     GoogleMap mMap;
-    Location location;
-    LocationManager locationManager;
-    double latitude = 41.0297;
-    double longitude = 21.3292;
+    protected GoogleApiClient mGoogleApiClient;
+    Location mLastLocation;
+    double lat = 0, lng = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,10 +49,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        ActivityCompat.requestPermissions(
-                this,
-                new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION},
-                0);
+
         sMapFragment = SupportMapFragment.newInstance();
 
 
@@ -171,26 +161,19 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+       /* mMap = googleMap;
+        LatLng latLng = new LatLng(41.0297,21.3292);
+        mMap.addMarker(new MarkerOptions().position(latLng).title("Bitola"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,5.0f));
+
+        mMap.setOnMapLongClickListener(new On);*/
+
         mMap = googleMap;
-        /*Marker marker;
-        Location location;
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        LocationListener locationListener = new MyLocationListenner();
-        location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        locationListener.onLocationChanged(location);
-        Log.d("LtLg","Lat:" + location.getLatitude()+ "Long:" + location.getLongitude());*/
 
-        //LatLng latLng = new LatLng(location.getLatitude(),location.getLongitude());
-        //mMap.addMarker(new MarkerOptions().position(latLng).title("I am here!"));
-
-        FuelAdd fuelAdd = new FuelAdd();
-        double lat= fuelAdd.getLatitude();
-        double lng = fuelAdd.getLongitude();
-        LatLng ltLn = new LatLng(lat,lng);
-        mMap.addMarker(new MarkerOptions().position(ltLn).title("From database"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(ltLn));
-
-
-
+        LatLng loc = new LatLng(lat, lng);
+        mMap.addMarker(new MarkerOptions().position(loc).title("New Marker"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
     }
+
+
 }
