@@ -23,7 +23,8 @@
         android:theme="@style/AppTheme">
 
         <meta-data android:name="AA_DB_NAME" android:value="FuelDB.db" />
-        <meta-data android:name="AA_DB_VERSION" android:value="5" />
+        <meta-data android:name="AA_DB_VERSION" android:value="10" />
+        <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version"/>
 
         <activity
             android:name=".MainActivity"

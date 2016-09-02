@@ -2,6 +2,7 @@ package com.example.navigationdrawer_01;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
@@ -25,8 +26,10 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -36,12 +39,15 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
+        implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener, LocationListener {
     SupportMapFragment sMapFragment;
     GoogleMap mMap;
     protected GoogleApiClient mGoogleApiClient;
     Location mLastLocation;
+    private LocationRequest mLocationRequest;
     double lat = 0, lng = 0;
+    private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,45 +119,42 @@ public class MainActivity extends AppCompatActivity
         Fragment fragment;
         android.support.v4.app.FragmentManager sFM = getSupportFragmentManager();
 
-        if(sMapFragment.isAdded())
+        if (sMapFragment.isAdded())
             sFM.beginTransaction().hide(sMapFragment).commit();
 
         if (id == R.id.nav_first_layout) {
             fragment = new InputFragment();
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.content_frame,fragment);
+            ft.replace(R.id.content_frame, fragment);
             ft.commit();
             Log.d("FIRST LAYOUT", "HOME item is clicked");
             // Handle the camera action
-        } else if (id == R.id.nav_second_layout ){
+        } else if (id == R.id.nav_second_layout) {
             fragment = new HistoryFragment();
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.content_frame,fragment);
+            ft.replace(R.id.content_frame, fragment);
             ft.commit();
             Log.d("SECOND LAYOUT", "HOME item is clicked");
 
         } else if (id == R.id.nav_third_layout) {
             fragment = new MyCarFragment();
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.content_frame,fragment);
+            ft.replace(R.id.content_frame, fragment);
             ft.commit();
             Log.d("THIRD LAYOUT", "HOME item is clicked");
-        }
-        else if (id == R.id.nav_forth_layout) {
+        } else if (id == R.id.nav_forth_layout) {
             fragment = new CostFragment();
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.content_frame,fragment);
+            ft.replace(R.id.content_frame, fragment);
             ft.commit();
             Log.d("Forth layout", "HOME item is clicked");
-        }
-        else if (id == R.id.nav_fifth_layout) {
-            if(!sMapFragment.isAdded())
+        } else if (id == R.id.nav_fifth_layout) {
+            if (!sMapFragment.isAdded())
                 sFM.beginTransaction().add(R.id.map, sMapFragment).commit();
             else
-            sFM.beginTransaction().show(sMapFragment).commit();
+                sFM.beginTransaction().show(sMapFragment).commit();
             Log.d("Forth layout", "HOME item is clicked");
         }
-
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -174,6 +177,64 @@ public class MainActivity extends AppCompatActivity
         mMap.addMarker(new MarkerOptions().position(loc).title("New Marker"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
     }
+    private void handleNewLocation(Location location) {
+        Log.d("LOCATION", location.toString());
 
+        double currentLatitude = location.getLatitude();
+        double currentLongitude = location.getLongitude();
 
+        LatLng latLng = new LatLng(currentLatitude, currentLongitude);
+
+        //mMap.addMarker(new MarkerOptions().position(new LatLng(currentLatitude, currentLongitude)).title("Current Location"));
+        MarkerOptions options = new MarkerOptions()
+                .position(latLng)
+                .title("I am here!");
+        mMap.addMarker(options);
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+    }
+
+    @Override
+    public void onConnected(Bundle bundle) {
+        Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        if (location == null) {
+            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+        }
+        else {
+            handleNewLocation(location);
+        }
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        handleNewLocation(location);
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+
+        if (connectionResult.hasResolution()) {
+            try {
+                // Start an Activity that tries to resolve the error
+                connectionResult.startResolutionForResult(this, CONNECTION_FAILURE_RESOLUTION_REQUEST);
+                /*
+                 * Thrown if Google Play services canceled the original
+                 * PendingIntent
+                 */
+            } catch (IntentSender.SendIntentException e) {
+                // Log the error
+                e.printStackTrace();
+            }
+        } else {
+            /*
+             * If no resolution is available, display a dialog to the
+             * user with the error.
+             */
+            Log.i("LOCATION SERVICES", "Location services connection failed with code " + connectionResult.getErrorCode());
+        }
+    }
 }
