@@ -4,23 +4,25 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_first_layout"
-            android:icon="@drawable/icon"
-            android:title="New Input" />
+            android:icon="@drawable/item_icon"
+            android:title="New Input"
+
+            />
         <item
             android:id="@+id/nav_second_layout"
-            android:icon="@drawable/icon"
+            android:icon="@drawable/history_icon"
             android:title="History" />
         <item
         android:id="@+id/nav_third_layout"
-        android:icon="@drawable/icon"
+        android:icon="@drawable/car2_icon"
         android:title="MyCar" />
         <item
             android:id="@+id/nav_forth_layout"
-            android:icon="@drawable/icon"
+            android:icon="@drawable/cost_icon"
             android:title="Cost" />
         <item
             android:id="@+id/nav_fifth_layout"
-            android:icon="@drawable/icon"
+            android:icon="@drawable/map2_icon"
             android:title="Map" />
     </group>
 

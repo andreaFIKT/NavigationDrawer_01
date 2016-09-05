@@ -39,7 +39,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener, LocationListener {
+        implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
     SupportMapFragment sMapFragment;
     GoogleMap mMap;
     protected GoogleApiClient mGoogleApiClient;
@@ -55,6 +55,24 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+       /* mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
+        mLocationRequest = new LocationRequest();
+        mLocationRequest.setInterval(5000);
+        mLocationRequest.setFastestInterval(5000);
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        mLocationRequest.setSmallestDisplacement(10);
+
+        mLastLocation = LocationServices.FusedLocationApi
+                .getLastLocation(mGoogleApiClient);
+            double latitude = mLastLocation.getLatitude();
+            double longitude = mLastLocation.getLongitude();
+        Log.d("Lat",":" + latitude);
+        Log.d("Lnh",":"+longitude);*/
+
 
         sMapFragment = SupportMapFragment.newInstance();
 
@@ -119,9 +137,9 @@ public class MainActivity extends AppCompatActivity
         Fragment fragment;
         android.support.v4.app.FragmentManager sFM = getSupportFragmentManager();
 
-        if (sMapFragment.isAdded())
+        /*if (sMapFragment.isAdded())
             sFM.beginTransaction().hide(sMapFragment).commit();
-
+*/
         if (id == R.id.nav_first_layout) {
             fragment = new InputFragment();
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -164,19 +182,22 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-       /* mMap = googleMap;
-        LatLng latLng = new LatLng(41.0297,21.3292);
+        mMap = googleMap;
+        LatLng latLng = new LatLng(41.0297, 21.3292);
         mMap.addMarker(new MarkerOptions().position(latLng).title("Bitola"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,5.0f));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 5.0f));
 
-        mMap.setOnMapLongClickListener(new On);*/
 
         mMap = googleMap;
-
+        double lt = 41.0297;
+        double ln = 21.3292;
         LatLng loc = new LatLng(lat, lng);
+        LatLng loc1 = new LatLng(lt, ln);
         mMap.addMarker(new MarkerOptions().position(loc).title("New Marker"));
+        mMap.addMarker(new MarkerOptions().position(loc1).title("Bitola"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
     }
+
     private void handleNewLocation(Location location) {
         Log.d("LOCATION", location.toString());
 
@@ -195,13 +216,23 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onConnected(Bundle bundle) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
         Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         if (location == null) {
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
         }
-        else {
+      /*  else {
             handleNewLocation(location);
-        }
+        }*/
     }
 
     @Override
@@ -211,16 +242,18 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onLocationChanged(Location location) {
-        handleNewLocation(location);
+        /*handleNewLocation(location);*/
     }
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
+        Log.d("Failed","Connection");
 
         if (connectionResult.hasResolution()) {
             try {
                 // Start an Activity that tries to resolve the error
                 connectionResult.startResolutionForResult(this, CONNECTION_FAILURE_RESOLUTION_REQUEST);
+
                 /*
                  * Thrown if Google Play services canceled the original
                  * PendingIntent
