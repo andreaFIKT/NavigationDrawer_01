@@ -5,17 +5,15 @@
         <item
             android:id="@+id/nav_first_layout"
             android:icon="@drawable/item_icon"
-            android:title="New Input"
-
-            />
+            android:title="New Input" />
         <item
             android:id="@+id/nav_second_layout"
             android:icon="@drawable/history_icon"
             android:title="History" />
         <item
-        android:id="@+id/nav_third_layout"
-        android:icon="@drawable/car2_icon"
-        android:title="MyCar" />
+            android:id="@+id/nav_third_layout"
+            android:icon="@drawable/car5_icon"
+            android:title="MyCar" />
         <item
             android:id="@+id/nav_forth_layout"
             android:icon="@drawable/cost_icon"

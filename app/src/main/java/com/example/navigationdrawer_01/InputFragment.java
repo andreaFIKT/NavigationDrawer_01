@@ -40,7 +40,7 @@ import com.google.android.gms.location.LocationServices;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class InputFragment extends Fragment implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
+public class InputFragment extends Fragment implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
     EditText todayDate;
     EditText entLiters;
     EditText entPrice;
@@ -85,9 +85,9 @@ public class InputFragment extends Fragment implements GoogleApiClient.Connectio
         mLocationRequest.setSmallestDisplacement(10);
 
         mGoogleApiClient = new GoogleApiClient.Builder(InputFragment.this.getContext())
+                .addApi(LocationServices.API)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
-                .addApi(LocationServices.API)
                 .build();
         mGoogleApiClient.connect();
 
@@ -110,8 +110,22 @@ public class InputFragment extends Fragment implements GoogleApiClient.Connectio
         btnLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                displayLocation();
-                Log.d("btnLocation", "CLicked");
+                mLocationRequest = new LocationRequest();
+                mLocationRequest.setInterval(5000);
+                mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+                Log.d("GoogleAPIClient"," " + mGoogleApiClient);
+                //LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+                mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+                Log.d("mLastLocation","loc"+mLastLocation);
+                if (mLastLocation != null) {
+                 double latitude = mLastLocation.getLatitude();
+                 double longitude = mLastLocation.getLongitude();
+                   lat.setText(String.valueOf(latitude));
+                   lng.setText(String.valueOf(longitude));
+                   }
+                else {
+                   Log.d("GPS", "Location not found");
+                   }
             }
         });
 
@@ -136,27 +150,7 @@ public class InputFragment extends Fragment implements GoogleApiClient.Connectio
 
     @Override
     public void onConnected(Bundle bundle) {
-        if (ActivityCompat.checkSelfPermission(InputFragment.this.getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(InputFragment.this.getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        Log.d("Location","= "+ mLastLocation);
-
-        if (mLastLocation != null) {
-            lat.setText(String.valueOf(
-                    mLastLocation.getLatitude()));
-            lng.setText(String.valueOf(
-                    mLastLocation.getLongitude()));
-        } else {
-            Toast.makeText(InputFragment.this.getContext(),"No location detected", Toast.LENGTH_LONG).show();
-        }
+        Toast.makeText(getContext(), "Connected", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -169,6 +163,7 @@ public class InputFragment extends Fragment implements GoogleApiClient.Connectio
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
         Log.d("Failed", "Connection failed");
+        mGoogleApiClient.connect();
     }
 
     @Override
@@ -193,7 +188,7 @@ public class InputFragment extends Fragment implements GoogleApiClient.Connectio
     }
 
 
-    private void displayLocation() {
+   /* private void displayLocation() {
 
         if (ActivityCompat.checkSelfPermission(InputFragment.this.getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(InputFragment.this.getContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -243,7 +238,7 @@ public class InputFragment extends Fragment implements GoogleApiClient.Connectio
         lat.setText(String.valueOf(location.getLatitude()));
         lng.setText(String.valueOf(location.getLongitude()));
 
-    }
+    }*/
 }
 
 

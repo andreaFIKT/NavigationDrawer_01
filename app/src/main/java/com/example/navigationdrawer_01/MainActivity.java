@@ -182,10 +182,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-        LatLng latLng = new LatLng(41.0297, 21.3292);
-        mMap.addMarker(new MarkerOptions().position(latLng).title("Bitola"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 5.0f));
 
 
         mMap = googleMap;
@@ -230,9 +226,9 @@ public class MainActivity extends AppCompatActivity
         if (location == null) {
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
         }
-      /*  else {
+        else {
             handleNewLocation(location);
-        }*/
+        }
     }
 
     @Override
@@ -242,7 +238,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onLocationChanged(Location location) {
-        /*handleNewLocation(location);*/
+        handleNewLocation(location);
     }
 
     @Override

@@ -8,31 +8,42 @@
         android:layout_height="wrap_content"
         android:text="CATEGORY :"
         android:id="@+id/etCateg"
-        android:textSize="15sp" />
+        android:textSize="15sp"
+        android:textColor="#00008B"/>
 
     <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/spinner"
-        android:background="#e9e9e9" />
+        android:background="#ffffff"
+        />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/title"
         android:hint="Title :"
-        android:textSize="15sp" />
+        android:backgroundTint="#00008B"
+        android:textCursorDrawable="@android:color/black"
+        android:textColor="#00008B"
+        android:textSize="15sp"
+        android:textColorHint="#00008B" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/editText2"
         android:hint="Total cost :"
-        android:textSize="15sp" />
+        android:backgroundTint="#00008B"
+        android:textCursorDrawable="@android:color/black"
+        android:textColor="#00008B"
+        android:textSize="15sp"
+        android:textColorHint="#00008B" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="#00008B"
         android:text="Date"
         android:id="@+id/textView3"
         android:textSize="15sp" />
@@ -45,7 +56,8 @@
         android:scaleY="0.9"
         android:layout_marginLeft="-40dp"
         android:layout_marginRight="-40dp"
-        android:background="#e9e9e9"
+        android:background="#ffffff"
+        android:textCursorDrawable="@android:color/black"
         android:datePickerMode="spinner" />
 
     <Button
@@ -53,7 +65,8 @@
         android:layout_height="wrap_content"
         android:text="SAVE"
         android:id="@+id/btnSaveCost"
-        android:background="#b4b1b1"
-        android:layout_gravity="center_horizontal" />
+        android:background="#00008B"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#FFFFFF" />
 
 </LinearLayout>

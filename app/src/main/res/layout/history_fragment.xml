@@ -9,6 +9,9 @@
         android:layout_above="@+id/btnNext"
         android:layout_alignParentEnd="true"
         android:background="#fcf6f6"
-        android:longClickable="true" />
+        android:longClickable="true"
+        android:divider="#00008B"
+        android:dividerHeight="4px"
+        />
 
 </LinearLayout>

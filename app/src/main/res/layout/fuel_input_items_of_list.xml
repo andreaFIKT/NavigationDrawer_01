@@ -1,29 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:drawable="@android:color/holo_blue_light">
 
    <TextView
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
        android:id="@+id/todayDateTextView"
-       android:height="20dp" />
+       android:height="20dp"
+       android:textColor="#00008B"
+       />
 
    <TextView
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
        android:id="@+id/enteredLitersTextView"
-       android:height="20dp" />
+       android:height="20dp"
+       android:textColor="#00008B"/>
 
    <TextView
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
        android:id="@+id/enteredPriceTextView"
-       android:height="20dp" />
+       android:height="20dp"
+       android:textColor="#00008B"/>
 
    <TextView
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
        android:id="@+id/enteredCost"
-       android:height="20dp" />
+       android:height="20dp"
+       android:textColor="#00008B"/>
 </LinearLayout>
