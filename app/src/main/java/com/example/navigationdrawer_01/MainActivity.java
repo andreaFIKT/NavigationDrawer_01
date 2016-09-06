@@ -171,7 +171,15 @@ public class MainActivity extends AppCompatActivity
                 sFM.beginTransaction().add(R.id.map, sMapFragment).commit();
             else
                 sFM.beginTransaction().show(sMapFragment).commit();
-            Log.d("Forth layout", "HOME item is clicked");
+            Log.d("Fifth layout", "HOME item is clicked");
+        }
+        else if (id == R.id.nav_sixth_layout) {
+            fragment = new ReminderFragment();
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.content_frame,fragment);
+            ft.commit();
+            Log.d("Sixth layout", "HOME item is clicked");
+
         }
 
 
