@@ -3,9 +3,11 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <fragment
+    <ListView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:name="com.example.navigationdrawer_01.ReminderFragment"
-        android:id="@+id/reminder"/>
+        android:layout_height="wrap_content"
+        android:id="@+id/listOfReminders"
+        android:layout_gravity="center_horizontal"
+        android:divider="#00008b"
+        android:dividerHeight="3dp" />
 </LinearLayout>

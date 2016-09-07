@@ -3,9 +3,9 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <fragment
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:name="com.example.navigationdrawer_01.ReminderFragment"
-        android:id="@+id/reminder"/>
+ <fragment
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     android:name="com.example.navigationdrawer_01.ReminderLogFragment"
+     android:id="@+id/reminderLogList"/>
 </LinearLayout>

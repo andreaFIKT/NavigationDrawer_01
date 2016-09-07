@@ -181,6 +181,14 @@ public class MainActivity extends AppCompatActivity
             Log.d("Sixth layout", "HOME item is clicked");
 
         }
+        else if (id == R.id.nav_seventh_layout) {
+            fragment = new ReminderLogFragment();
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.content_frame,fragment);
+            ft.commit();
+            Log.d("Seventh layout", "HOME item is clicked");
+
+        }
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -1,76 +1,79 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="REMINDER"
+        android:id="@+id/txtReminder"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:textColor="#00008B" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Title :"
         android:id="@+id/reminderTitle"
-        android:layout_marginTop="49dp"
-        android:textColor="#00008B"
         android:textSize="20sp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+        android:textColor="#00008B" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editText"
-        android:layout_below="@+id/reminderTitle"
-        android:layout_alignParentStart="true" />
+        android:id="@+id/entReminderTitle" />
 
-    <EditText
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editText3"
-        android:layout_below="@+id/editText"
-        android:layout_alignParentStart="true"
-        android:hint="Odometer :"
-        android:textColorHint="#00008B" />
+        android:text="Odometer :"
+        android:id="@+id/reminderOdometer"
+        android:textColor="#00008B"
+        android:textSize="20sp" />
 
     <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/entReminderOdometer" />
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editText4"
-        android:hint="Date :"
+        android:text="Note :"
+        android:id="@+id/reminderNote"
+        android:textColor="#00008B"
+        android:textSize="20sp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/entReminderNote" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date :"
+        android:id="@+id/txtReminderDate"
+        android:textColor="#00008B"
+        android:textSize="20sp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/date"
+        android:hint="click here to choose date"
         android:textColorHint="#00008B"
-        android:layout_below="@+id/editText"
-        android:layout_centerHorizontal="true" />
+        android:textSize="15sp" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="ADD"
         android:id="@+id/addReminder"
-        android:layout_centerVertical="true"
-        android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@+id/editText4"
-        android:background="#00008B"
-        android:textColor="#ffffff"
-        android:textStyle="bold"
-        android:textSize="20sp" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="REMINDER"
-        android:id="@+id/textView2"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#FFFFFF"
         android:textAlignment="center"
-        android:height="40dp"
-        android:gravity="center"
-        android:textSize="25sp"
-        android:textColor="#00008B" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/editText5"
-        android:layout_below="@+id/editText3"
-        android:layout_alignParentStart="true"
-        android:hint="Note :"
-        android:textColorHint="#00008B" />
-
-</RelativeLayout>
+        android:background="#00008B" />
+</LinearLayout>

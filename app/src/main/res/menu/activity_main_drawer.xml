@@ -24,8 +24,12 @@
             android:title="Map" />
         <item
             android:id="@+id/nav_sixth_layout"
-            android:icon="@drawable/map2_icon"
+            android:icon="@drawable/reminder_icon"
             android:title="Reminder" />
+        <item
+            android:id="@+id/nav_seventh_layout"
+            android:icon="@drawable/reminder_icon"
+            android:title="Reminder Log" />
     </group>
 
 </menu>

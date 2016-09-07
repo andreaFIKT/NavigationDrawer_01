@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtTitle"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:height="20dp"
+        android:gravity="fill" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/alarmImage"
+        android:layout_below="@+id/txtTitle"
+        android:layout_alignParentStart="true"
+        android:maxHeight="40dp"
+        android:maxWidth="40dp"
+        android:background="@android:drawable/ic_lock_idle_alarm"
+        android:layout_alignBottom="@+id/txtDate" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtDate"
+        android:layout_below="@+id/txtTitle"
+        android:layout_toEndOf="@+id/alarmImage"
+        android:height="20dp"
+        android:textAlignment="center" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtOdometer"
+        android:layout_below="@+id/alarmImage"
+        android:layout_alignParentStart="true"
+        android:height="20dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtNote"
+        android:layout_below="@+id/txtOdometer"
+        android:layout_alignParentStart="true"
+        android:height="20dp" />
+</RelativeLayout>
