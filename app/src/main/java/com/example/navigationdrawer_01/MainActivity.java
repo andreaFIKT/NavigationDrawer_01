@@ -137,9 +137,9 @@ public class MainActivity extends AppCompatActivity
         Fragment fragment;
         android.support.v4.app.FragmentManager sFM = getSupportFragmentManager();
 
-        /*if (sMapFragment.isAdded())
+       if(sMapFragment.isAdded())
             sFM.beginTransaction().hide(sMapFragment).commit();
-*/
+
         if (id == R.id.nav_first_layout) {
             fragment = new InputFragment();
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -198,7 +198,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-
 
         mMap = googleMap;
         double lt = 41.0297;
@@ -275,10 +274,7 @@ public class MainActivity extends AppCompatActivity
                 e.printStackTrace();
             }
         } else {
-            /*
-             * If no resolution is available, display a dialog to the
-             * user with the error.
-             */
+
             Log.i("LOCATION SERVICES", "Location services connection failed with code " + connectionResult.getErrorCode());
         }
     }

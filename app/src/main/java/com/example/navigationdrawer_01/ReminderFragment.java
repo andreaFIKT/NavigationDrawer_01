@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.WakefulBroadcastReceiver;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,9 +58,10 @@ public class ReminderFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.reminder_fragment, container, false);
-        br = new BroadcastReceiver() {
+        br = new WakefulBroadcastReceiver(){
             @Override
             public void onReceive(Context context, Intent intent) {
+//                context.startService(new Intent(context, MyService.class));
                 String notes = " ";
                 Bundle extras = intent.getExtras();
                 if(extras != null)
@@ -68,10 +70,8 @@ public class ReminderFragment extends Fragment {
 
                 }
                 Toast.makeText(getContext(),"WakeUP"+notes,Toast.LENGTH_SHORT).show();
+                getActivity().startService(new Intent(getContext(),MyService.class));
                 createNotification(notes);
-
-
-
             }
         };
         reminder = (TextView) v.findViewById(R.id.txtReminder);
@@ -94,26 +94,26 @@ public class ReminderFragment extends Fragment {
                 DatePickerDialog ddp = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int sYear, int sMonth, int sDay) {
-                        chooseDate.setText(sYear + "/" + sMonth +"/" + sDay);
+                        chooseDate.append(sYear + "/" + sMonth +"/" + sDay);
+                        c.set(Calendar.YEAR,sYear);
+                        c.set(Calendar.MONTH,sMonth);
+                        c.set(Calendar.DAY_OF_MONTH,sDay);
 
                     }
                 },year,month,day);
-
-
-
+                ddp.show();
 
                 mTimePicker = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                       chooseDate.setText( selectedHour + ":" + selectedMinute);
+                       chooseDate.append( selectedHour + ":" + selectedMinute);
+                        c.set(Calendar.HOUR_OF_DAY,selectedHour);
+                        c.set(Calendar.MINUTE,selectedMinute);
 
                     }
                 }, hour, minute, true);//Yes 24 hour time
                 mTimePicker.setTitle("Select Time");
                 mTimePicker.show();
-                ddp.show();
-//                chooseDate.setText(year + "/" + month + "/" + day + "/" + hour + "/" + minute);
-
 
             }
         });
@@ -132,18 +132,18 @@ public class ReminderFragment extends Fragment {
                 Log.d("REMINDER", "Saved:" +addNewReminder.save());
 
 
+
                 String notes = entNote.getText().toString();
-                getActivity().registerReceiver(br, new IntentFilter("com.example.navigationdrawer_01"));
+                //getActivity().registerReceiver(br, new IntentFilter("com.example.navigationdrawer_01"));
+                getActivity().startService(new Intent(getContext(),MyService.class));
                 Intent alarmIntent = new Intent("com.example.navigationdrawer_01");
                 alarmIntent.putExtra("notes",notes);
                 pi = PendingIntent.getBroadcast(getContext(),0, alarmIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-                alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
-                alarmManager.set(AlarmManager.RTC_WAKEUP,c.getTimeInMillis()  ,pi);
+                /*alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+                alarmManager.set(AlarmManager.RTC_WAKEUP,c.getTimeInMillis(),pi);*/
 
             }
         });
-
-
         return v;
     }
 
@@ -164,11 +164,11 @@ public class ReminderFragment extends Fragment {
 
     }
 
-    @Override
+    /*@Override
     public void onDestroy(){
         alarmManager.cancel(pi);
         getActivity().unregisterReceiver(br);
         super.onDestroy();
-    }
+    }*/
 }
 

@@ -50,7 +50,7 @@ public class ReminderLogFragment extends Fragment {
 
                 long itemID = reminderLog.get(po).getId();
                 Log.d("ItemID","= "+ itemID);
-                new Delete().from(FuelAdd.class).where("Id = ?",itemID).execute();
+                new Delete().from(ReminderModel.class).where("Id = ?",itemID).execute();
                 reminderLog.remove(po);
                 adapter.notifyDataSetChanged();
                 return true;

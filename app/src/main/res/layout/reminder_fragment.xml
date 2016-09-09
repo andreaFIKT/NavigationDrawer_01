@@ -23,7 +23,9 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/entReminderTitle" />
+        android:id="@+id/entReminderTitle"
+        android:backgroundTint="#00008B"
+        android:textCursorDrawable="@android:color/black"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -36,7 +38,9 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/entReminderOdometer" />
+        android:id="@+id/entReminderOdometer"
+        android:backgroundTint="#00008B"
+        android:textCursorDrawable="@android:color/black"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -49,7 +53,9 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/entReminderNote" />
+        android:id="@+id/entReminderNote"
+        android:backgroundTint="#00008B"
+        android:textCursorDrawable="@android:color/black"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -65,7 +71,9 @@
         android:id="@+id/date"
         android:hint="click here to choose date"
         android:textColorHint="#00008B"
-        android:textSize="15sp" />
+        android:textSize="15sp"
+        android:backgroundTint="#00008B"
+        android:textCursorDrawable="@android:color/black"/>
 
     <Button
         android:layout_width="wrap_content"
