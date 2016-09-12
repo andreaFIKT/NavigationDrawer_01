@@ -36,7 +36,7 @@ public class MyService extends Service {
     public void onDestroy() {
         try {
             mTimer.cancel();
-            timerTask.cancel();
+//            timerTask.cancel();
         }
         catch (Exception e)
         {
@@ -53,19 +53,20 @@ public class MyService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        mTimer = new Timer();
-        mTimer.schedule(timerTask,5000,5*1000);
+//        mTimer = new Timer();
+//        notifiy();
+        /*mTimer.schedule(timerTask,5000,5*1000);*/
     }
     private Timer mTimer;
-    TimerTask timerTask = new TimerTask() {
+   /* TimerTask timerTask = new TimerTask() {
         @Override
         public void run() {
             Log.e("Log","Running");
-            notifiy();
-        }
-    };
 
-    public  void notifiy(){
+        }
+    };*/
+
+  /* public  void notifiy(){
         IntentFilter  intentFilter = new IntentFilter();
         intentFilter.addAction("Action");
         Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(""));
@@ -82,8 +83,8 @@ public class MyService extends Service {
 
         Notification notification = builder.build();
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(1,notification);
+        notificationManager.notify(0,notification);
 
-    }
+    }*/
 
 }

@@ -7,6 +7,7 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.app.usage.UsageEvents;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +15,7 @@ import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.provider.CalendarContract;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.WakefulBroadcastReceiver;
@@ -28,7 +30,10 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.android.gms.vision.barcode.Barcode;
+
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 /**
  * Created by Inellipse10 on 06/09/2016.
@@ -58,7 +63,7 @@ public class ReminderFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.reminder_fragment, container, false);
-        br = new WakefulBroadcastReceiver(){
+        /*br = new BroadcastReceiver(){
             @Override
             public void onReceive(Context context, Intent intent) {
 //                context.startService(new Intent(context, MyService.class));
@@ -73,7 +78,7 @@ public class ReminderFragment extends Fragment {
                 getActivity().startService(new Intent(getContext(),MyService.class));
                 createNotification(notes);
             }
-        };
+        };*/
         reminder = (TextView) v.findViewById(R.id.txtReminder);
         reminderTitle = (TextView) v.findViewById(R.id.reminderTitle);
         etReminderTitle = (EditText) v.findViewById(R.id.entReminderTitle);
@@ -131,23 +136,24 @@ public class ReminderFragment extends Fragment {
                 addNewReminder.save();
                 Log.d("REMINDER", "Saved:" +addNewReminder.save());
 
-
-
-                String notes = entNote.getText().toString();
-                //getActivity().registerReceiver(br, new IntentFilter("com.example.navigationdrawer_01"));
-                getActivity().startService(new Intent(getContext(),MyService.class));
-                Intent alarmIntent = new Intent("com.example.navigationdrawer_01");
-                alarmIntent.putExtra("notes",notes);
-                pi = PendingIntent.getBroadcast(getContext(),0, alarmIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-                /*alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
-                alarmManager.set(AlarmManager.RTC_WAKEUP,c.getTimeInMillis(),pi);*/
-
+               /* Calendar beginTime = Calendar.getInstance();
+                beginTime.set(2016,9,12,11,37);
+                Calendar endTime = Calendar.getInstance();
+                endTime.set(2016,9,12,11,38);*/
+                Intent intent = new Intent(Intent.ACTION_INSERT)
+                        .setData(CalendarContract.Events.CONTENT_URI)
+                        .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME,c.getTimeInMillis())
+                        .putExtra(CalendarContract.EXTRA_EVENT_END_TIME,c.getTimeInMillis())
+                        .putExtra(CalendarContract.Events.TITLE,"Remider")
+                        .putExtra(CalendarContract.Events.DESCRIPTION,"New Reminder")
+                        .putExtra(CalendarContract.Events.AVAILABILITY, CalendarContract.Events.AVAILABILITY_BUSY);
+                startActivity(intent);
             }
         });
         return v;
     }
 
-    private void createNotification(String notes)
+ /*   private void createNotification(String notes)
     {
         Intent intent = new Intent(getContext(), ReminderFragment.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(getContext(),0,intent,0);
@@ -162,7 +168,7 @@ public class ReminderFragment extends Fragment {
                 getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(0,n);
 
-    }
+    }*/
 
     /*@Override
     public void onDestroy(){
