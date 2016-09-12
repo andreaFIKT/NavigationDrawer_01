@@ -30,6 +30,10 @@
             android:id="@+id/nav_seventh_layout"
             android:icon="@drawable/reminder_icon"
             android:title="Reminder Log" />
+        <item
+            android:id="@+id/nav_eight_layout"
+            android:icon="@drawable/reminder_icon"
+            android:title="Chart" />
     </group>
 
 </menu>
